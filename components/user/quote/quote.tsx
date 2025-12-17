@@ -391,10 +391,10 @@ const Quote = () => {
     <section>
       <div className="flex flex-col justify-center px-4 md:px-12 xl:px-32 2xl:px-48 mt-12 py-10">
         {/* Header */}
-        <div className="flex flex-col md:flex-row justify-between gap-4 pb-16">
+        <div className="flex text-center justify-center mx-auto gap-4 pb-6">
           <div className="max-w-4xl">
-            <h1 className={`text-5xl text-accent ${poetsen_one.className}`}>GET A QUOTE</h1>
-            <h1 className={`text-4xl text-primary ${poetsen_one.className}`}>
+            <h1 className={`text-4xl text-accent font-bold`}>GET A QUOTE</h1>
+            <h1 className={`text-3xl text-primary ${poetsen_one.className}`}>
               We believe in delivering high-quality solutions to help you grow your business effectively.
             </h1>
           </div>
@@ -435,9 +435,7 @@ const Quote = () => {
           {/* Plan selection */}
           <div className="flex justify-center">
             {/* Outer scroll container */}
-            <div
-              className="flex gap-4 overflow-x-auto md:flex-wrap md:justify-center px-2"
-            >
+            <div className="flex gap-4 overflow-x-auto md:flex-wrap md:justify-center px-2">
               {Object.keys(plans).map((name) => (
                 <Link key={name} onPress={() => setPlan(name)}>
                   <Card

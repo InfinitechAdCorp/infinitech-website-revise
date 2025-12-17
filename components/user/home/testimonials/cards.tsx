@@ -52,7 +52,7 @@ const Cards = () => {
       {/* Heading */}
       <div className="w-full mb-8">
         <div className="max-w-lg mx-auto text-center md:text-left">
-          <h1 className="text-2xl md:text-3xl lg:text-4xl text-primary font-bold mb-6">What Clients Say About Our Exceptional Service</h1>
+          <h1 className="text-2xl md:text-3xl lg:text-4xl text-primary font-['Poetsen_One'] mb-6">What Clients Say About Our Exceptional Service</h1>
         </div>
       </div>
       <div className="flex flex-col xl:flex-row xl:items-start xl:justify-center xl:gap-12">

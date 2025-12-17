@@ -27,8 +27,4 @@ export const links = [
     name: "Contact Us",
     href: "/contact",
   },
-  {
-    name: "Survey Form",
-    href: "/survey",
-  },
 ];

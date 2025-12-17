@@ -414,7 +414,7 @@ const PortfolioShowcase: React.FC = () => {
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
           }`}
         >
-          <h1 className="text-4xl md:text-6xl lg:text-8xl font-black text-slate-800 mb-6 animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
+          <h1 className="text-4xl md:text-6xl lg:text-8xl font-black text-primary mb-6 animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
             Our Work
           </h1>
 

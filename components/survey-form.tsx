@@ -2,7 +2,6 @@
 
 import type React from "react"
 import { useState } from "react"
-import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
@@ -14,6 +13,8 @@ import { CheckCircle2, ChevronLeft, ChevronRight, Loader2 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Form } from "formik"
 import { stepSchemas } from "@/schemas/survey"
+import { LuArrowRight } from "react-icons/lu"
+import { Button } from "@heroui/react"
 
 const TOTAL_STEPS = 6
 const stepTitles = ["Company & Contact", "Current Systems", "Challenges", "Hidden Needs", "Customization", "Feedback"]
@@ -265,15 +266,15 @@ export default function SurveyForm() {
               key={title}
               className={cn(
                 "flex flex-col items-center flex-1 text-center",
-                index + 1 === currentStep && "text-orange-400",
+                index + 1 === currentStep && "text-primary",
                 index + 1 < currentStep && "text-emerald-400",
-                index + 1 > currentStep && "text-primary",
+                index + 1 > currentStep && "text-primary/50",
               )}
             >
               <div
                 className={cn(
                   "w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium border-2 transition-colors",
-                  index + 1 === currentStep && "bg-orange-500 text-white border-orange-500",
+                  index + 1 === currentStep && "text-white bg-gradient-to-r from-blue-600 to-cyan-500",
                   index + 1 < currentStep && "bg-emerald-500 text-white border-emerald-500",
                   index + 1 > currentStep && "bg-slate-800 border-blue-400/30 text-blue-300/50",
                 )}
@@ -286,7 +287,7 @@ export default function SurveyForm() {
         </div>
         <div className="w-full bg-slate-700/50 rounded-full h-2">
           <div
-            className="bg-gradient-to-r from-yellow-400 to-orange-500 h-2 rounded-full transition-all duration-300"
+            className="bg-gradient-to-r from-blue-600 to-cyan-500 h-2 rounded-full transition-all duration-300"
             style={{ width: `${(currentStep / TOTAL_STEPS) * 100}%` }}
           />
         </div>
@@ -324,22 +325,22 @@ export default function SurveyForm() {
                       <SelectValue placeholder="Select range" />
                     </SelectTrigger>
                     <SelectContent className="bg-white">
-                      <SelectItem value="1-10" className="hover:bg-slate-100 cursor-pointer">
+                      <SelectItem value="1-10" className="focus:text-white hover:bg-primary focus:bg-primary cursor-pointer">
                         1-10
                       </SelectItem>
-                      <SelectItem value="11-50" className="hover:bg-slate-100 cursor-pointer">
+                      <SelectItem value="11-50" className="focus:text-white hover:bg-primary focus:bg-primary cursor-pointer">
                         11-50
                       </SelectItem>
-                      <SelectItem value="51-200" className="hover:bg-slate-100 cursor-pointer">
+                      <SelectItem value="51-200" className="focus:text-white hover:bg-primary focus:bg-primary cursor-pointer">
                         51-200
                       </SelectItem>
-                      <SelectItem value="201-500" className="hover:bg-slate-100 cursor-pointer">
+                      <SelectItem value="201-500" className="focus:text-white hover:bg-primary focus:bg-primary cursor-pointer">
                         201-500
                       </SelectItem>
-                      <SelectItem value="501-1000" className="hover:bg-slate-100 cursor-pointer">
+                      <SelectItem value="501-1000" className="focus:text-white hover:bg-primary focus:bg-primary cursor-pointer">
                         501-1000
                       </SelectItem>
-                      <SelectItem value="1000+" className="hover:bg-slate-100 cursor-pointer">
+                      <SelectItem value="1000+" className="focus:text-white hover:bg-primary focus:bg-primary cursor-pointer">
                         1000+
                       </SelectItem>
                     </SelectContent>
@@ -363,7 +364,7 @@ export default function SurveyForm() {
 
               <div className="space-y-3">
                 <Label className="text-slate-700">Industry</Label>
-                <div className="grid gap-3 grid-cols-2 md:grid-cols-3">
+                <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3">
                   {["Manufacturing", "Retail", "Healthcare", "Logistics", "Education", "Finance", "Hospitality", "Construction", "Other"].map(
                     (industry) => (
                       <div key={industry}>
@@ -485,7 +486,7 @@ export default function SurveyForm() {
             <CardContent className="space-y-6">
               <div className="space-y-3">
                 <Label className="text-slate-700">Select all that apply</Label>
-                <div className="grid gap-3 grid-cols-2">
+                <div className="grid gap-3 sm:grid-cols-2">
                   {[
                     "ERP",
                     "CRM",
@@ -681,7 +682,7 @@ export default function SurveyForm() {
 
               <div className="space-y-3">
                 <Label className="text-slate-700">Which areas would you like to improve?</Label>
-                <div className="grid gap-2 grid-cols-2">
+                <div className="grid gap-2 md:grid-cols-2">
                   {["Speed of operations", "Cost reduction", "Accuracy of data", "Customer satisfaction", "Employee productivity", "Branding"].map(
                     (area) => (
                       <div key={area} className="flex items-center space-x-2">
@@ -713,7 +714,7 @@ export default function SurveyForm() {
             <CardContent className="space-y-6">
               <div className="space-y-3">
                 <Label className="text-slate-700">Which systems are you interested in improving or implementing?</Label>
-                <div className="grid gap-2 grid-cols-2">
+                <div className="grid gap-2 md:grid-cols-2">
                   {[
                     "Payroll System",
                     "HR Management",
@@ -771,7 +772,7 @@ export default function SurveyForm() {
 
               <div className="space-y-3">
                 <Label className="text-slate-700">Preferred features (Select all that apply)</Label>
-                <div className="grid gap-2 grid-cols-2">
+                <div className="grid gap-2 md:grid-cols-2">
                   {["Cloud-based access", "Mobile access", "Automated reporting", "System integration", "Multi-user roles", "Real-time alerts"].map(
                     (feature) => (
                       <div key={feature} className="flex items-center space-x-2">
@@ -848,27 +849,41 @@ export default function SurveyForm() {
         )}
       </Card>
 
-      <div className="flex justify-between">
+      <div className="flex flex-col sm:flex-row justify-between gap-4 w-full">
+        {/* Previous Button */}
         <Button
-          variant="outline"
+          variant="bordered"
           onClick={handlePrevious}
           disabled={currentStep === 1}
-          className="gap-2 bg-transparent border-primary text-primary hover:bg-blue-900 hover:text-white disabled:opacity-30"
+          size="lg"
+          className="gap-2 bg-transparent border-primary text-primary hover:bg-blue-900 hover:text-white disabled:opacity-30 w-full sm:w-auto"
         >
           <ChevronLeft className="w-4 h-4" />
           Previous
         </Button>
 
+        {/* Next or Submit */}
         {currentStep < TOTAL_STEPS ? (
           <Button
             onClick={handleNext}
-            className="gap-2 bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white border-0"
+            size="lg"
+            className="gap-2 bg-gradient-to-r from-yellow-500 to-orange-500 
+                 hover:from-yellow-600 hover:to-orange-600 
+                 text-white border-0 w-full sm:w-auto"
           >
             Next
             <ChevronRight className="w-4 h-4" />
           </Button>
         ) : (
-          <Button onClick={handleSubmit} disabled={isSubmitting} className="bg-emerald-600 hover:bg-emerald-700 text-white">
+          <Button
+            onClick={handleSubmit}
+            disabled={isSubmitting}
+            size="lg"
+            className="bg-gradient-to-r from-yellow-500 to-orange-500 
+                 hover:from-yellow-600 hover:to-orange-600 
+                 text-white border-0 w-full sm:w-auto"
+            endContent={<LuArrowRight />}
+          >
             {isSubmitting ? (
               <>
                 <Loader2 className="w-4 h-4 mr-2 animate-spin" />

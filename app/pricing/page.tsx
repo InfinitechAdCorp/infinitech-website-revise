@@ -5,7 +5,6 @@ import PricingCard from "@/components/pricingCard"
 import { X, ShoppingCart, Mail, Loader2, Plus, Minus, Globe, CreditCard, Share, Share2, Video } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useDeviceType } from "@/hooks/use-device"
-import { poetsen_one } from "@/config/fonts"
 
 interface CartItem {
   planName: string
@@ -15,7 +14,7 @@ interface CartItem {
 }
 
 const PricingPage = () => {
-  const [activeService, setActiveService] = useState("website")
+  const [activeService, setActiveService] = useState<string | null>("")
   const [billingPeriod, setBillingPeriod] = useState<"monthly" | "yearly">("monthly")
   const [cart, setCart] = useState<CartItem[]>([])
   const [clientEmail, setClientEmail] = useState("")
@@ -361,9 +360,7 @@ const PricingPage = () => {
       {/* Header Section */}
       <section className="container mx-auto px-4 sm:px-6 lg:px-8 mb-8 lg:mb-12">
         <div className="text-center max-w-4xl mx-auto">
-          <h1 className={`text-5xl font-bold text-accent leading-tight ${poetsen_one.className}`}>
-            Pricing Plans
-          </h1>
+          <h1 className={`text-4xl text-accent font-bold uppercase`}>Pricing Plans</h1>
           <h2 className="text-3xl text-primary font-['Poetsen_One']">
             Choose the perfect plan for your business. All plans include support and updates.
           </h2>
@@ -392,22 +389,26 @@ const PricingPage = () => {
           </div>
 
           <p className="text-sm sm:text-base lg:text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed animate-fade-in-up mb-8 sm:mb-12 px-4">
-            {currentService.description}
+            {currentService?.description || ""}
           </p>
         </div>
       </section>
 
       <section className="container mx-auto px-4 sm:px-6 lg:px-8 mb-12">
-        <div className={`flex ${device === "laptop" ? "flex-row" : "flex-col"} gap-6 max-w-7xl mx-auto`}>
+        <div className={`flex ${device === "mobile" ? "flex-col" : "flex-row"} gap-6 max-w-7xl mx-auto`}>
           <div
-            className="flex flex-col gap-6 w-full mx-auto xl:flex-row md:gap-6 overflow-hidden md:overflow-visible"
-            onPointerLeave={() => setHoveredCol(null)}
+            className={`flex ${device === "laptop" ? "flex-row" : "flex-col"} gap-6 w-full mx-auto md:gap-6 overflow-hidden md:overflow-visible`}
+            onPointerLeave={() => {
+              setHoveredCol(null)
+              setActiveService(null)
+            }}
           >
             {/* Website */}
             <div
               onPointerEnter={() => {
                 if (!window.matchMedia("(hover: none)").matches) {
                   setHoveredCol(1)
+                  setActiveService("website")
                 }
               }}
               className={cn(
@@ -447,8 +448,8 @@ const PricingPage = () => {
                       billingPeriod={billingPeriod}
                       price={getPrice(plan)}
                       currency="₱"
-                      onAddToCart={() => toggleCart(plan.name, activeService, getPrice(plan))}
-                      isInCart={isInCart(plan.name, activeService)}
+                      onAddToCart={() => toggleCart(plan.name, "website", getPrice(plan))}
+                      isInCart={isInCart(plan.name, "website")}
                       isColumnHovered={hoveredCol === 1}
                       index={idx}
                     />
@@ -462,6 +463,7 @@ const PricingPage = () => {
               onPointerEnter={() => {
                 if (!window.matchMedia("(hover: none)").matches) {
                   setHoveredCol(2)
+                  setActiveService("juantap")
                 }
               }}
               className={cn(
@@ -501,8 +503,8 @@ const PricingPage = () => {
                       billingPeriod={billingPeriod}
                       price={getPrice(plan)}
                       currency="₱"
-                      onAddToCart={() => toggleCart(plan.name, activeService, getPrice(plan))}
-                      isInCart={isInCart(plan.name, activeService)}
+                      onAddToCart={() => toggleCart(plan.name, "juantap", getPrice(plan))}
+                      isInCart={isInCart(plan.name, "juantap")}
                       isColumnHovered={hoveredCol === 2}
                       index={idx}
                     />
@@ -516,6 +518,7 @@ const PricingPage = () => {
               onPointerEnter={() => {
                 if (!window.matchMedia("(hover: none)").matches) {
                   setHoveredCol(3)
+                  setActiveService("socialmedia")
                 }
               }}
               className={cn(
@@ -555,8 +558,8 @@ const PricingPage = () => {
                       billingPeriod={billingPeriod}
                       price={getPrice(plan)}
                       currency="₱"
-                      onAddToCart={() => toggleCart(plan.name, activeService, getPrice(plan))}
-                      isInCart={isInCart(plan.name, activeService)}
+                      onAddToCart={() => toggleCart(plan.name, "socialmedia", getPrice(plan))}
+                      isInCart={isInCart(plan.name, "socialmedia")}
                       isColumnHovered={hoveredCol === 3}
                       index={idx}
                     />
@@ -570,6 +573,7 @@ const PricingPage = () => {
               onPointerEnter={() => {
                 if (!window.matchMedia("(hover: none)").matches) {
                   setHoveredCol(4)
+                  setActiveService("multimedia")
                 }
               }}
               className={cn(
@@ -609,8 +613,8 @@ const PricingPage = () => {
                       billingPeriod={billingPeriod}
                       price={getPrice(plan)}
                       currency="₱"
-                      onAddToCart={() => toggleCart(plan.name, activeService, getPrice(plan))}
-                      isInCart={isInCart(plan.name, activeService)}
+                      onAddToCart={() => toggleCart(plan.name, "multimedia", getPrice(plan))}
+                      isInCart={isInCart(plan.name, "multimedia")}
                       isColumnHovered={hoveredCol === 4}
                       index={idx}
                     />
@@ -621,7 +625,13 @@ const PricingPage = () => {
           </div>
 
           {/* Cart */}
-          <div className="lg:w-80 shrink-0 order-last col-span-1" onPointerEnter={() => setHoveredCol(null)}>
+          <div
+            className={`${device === "mobile" ? "w-full" : "w-80"} shrink-0 order-last col-span-1`}
+            onPointerEnter={() => {
+              setHoveredCol(null)
+              setActiveService(null)
+            }}
+          >
             <div id="order-summary" className="bg-slate-50 rounded-2xl p-5">
               <div className="flex items-center gap-2 mb-4">
                 <ShoppingCart className="w-5 h-5 text-cyan-400" />

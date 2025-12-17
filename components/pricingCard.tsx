@@ -28,7 +28,7 @@ interface PricingCardProps {
   index: number
 }
 
-const gradients = ["from-cyan-600 to-blue-600", "from-green-400 to-teal-500", "from-pink-500 to-yellow-500", "from-purple-600 to-indigo-600"]
+const gradients = ["from-cyan-600 to-blue-600", "from-pink-500 to-yellow-500", "from-green-400 to-teal-500", "from-purple-600 to-indigo-600"]
 
 const PricingCard: React.FC<PricingCardProps> = ({ plan, billingPeriod, price, currency = "$", onAddToCart, isInCart, isColumnHovered, index }) => {
   const device = useDeviceType()
